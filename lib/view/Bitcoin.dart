@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+import '../styles/Cores.dart';
 import '../components/DrawerComponent.dart';
 
 const request =
@@ -21,7 +22,6 @@ class Bitcoin extends StatefulWidget {
 }
 
 class _BitcoinState extends State<Bitcoin> {
-
   @override
   void initState() {
     super.initState();
@@ -30,57 +30,63 @@ class _BitcoinState extends State<Bitcoin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[900],
+      backgroundColor: Cores.secondaryColor,
       drawer: Drawer(child: DrawerComponent()),
       appBar: AppBar(
         title: Text("Bitcoin"),
         centerTitle: true,
-        backgroundColor: Colors.red[900],
+        backgroundColor: Cores.primaryColor,
       ),
       body: FutureBuilder<Map>(
-        future: getData(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.active:
-            case ConnectionState.waiting:
-              return const Center(
-                  child: Text(
-                    "Carregando dados...",
-                    style: TextStyle(color: Colors.red, fontSize: 25.0),
-                    textAlign: TextAlign.center,
-                  ));
-            default:
-              if (snapshot.hasError) {
+          future: getData(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.active:
+              case ConnectionState.waiting:
                 return const Center(
                     child: Text(
-                      "Erro ao carregar dados...",
-                      style: TextStyle(color: Colors.red, fontSize: 25.0),
-                      textAlign: TextAlign.center,
-                    ));
-              } else {
-                return ListView.builder(
-                  itemCount: snapshot.data!["results"]["bitcoin"].length,
-                  itemBuilder: (context, index) {
-                    // Get the key (source name) at the current index
-                    final String sourceName = snapshot.data!["results"]["bitcoin"].keys.elementAt(index);
-                    // Access the specific Bitcoin source data using the key
-                    final Map<String, dynamic> bitcoinSource = snapshot.data!["results"]["bitcoin"][sourceName];
+                  "Carregando dados...",
+                  style: TextStyle(color: Cores.primaryColor, fontSize: 25.0),
+                  textAlign: TextAlign.center,
+                ));
+              default:
+                if (snapshot.hasError) {
+                  return const Center(
+                      child: Text(
+                    "Erro ao carregar dados...",
+                    style: TextStyle(color: Cores.primaryColor, fontSize: 25.0),
+                    textAlign: TextAlign.center,
+                  ));
+                } else {
+                  return ListView.builder(
+                    itemCount: snapshot.data!["results"]["bitcoin"].length,
+                    itemBuilder: (context, index) {
+                      // Get the key (source name) at the current index
+                      final String sourceName = snapshot
+                          .data!["results"]["bitcoin"].keys
+                          .elementAt(index);
+                      // Access the specific Bitcoin source data using the key
+                      final Map<String, dynamic> bitcoinSource =
+                          snapshot.data!["results"]["bitcoin"][sourceName];
 
-                    final String name = bitcoinSource["name"];
-                    final double last = bitcoinSource["last"];
-                    final String format = bitcoinSource["format"][0];
-                    
-                    return Card(
-                    child: ListTile(
-                      title: Text(name),
-                      subtitle: Text('Valor em $format: $last'),
-                    ),
-                    );
-                  },
-                );
-        }}}
-      ),
+                      final String name = bitcoinSource["name"];
+                      final double last = bitcoinSource["last"];
+                      final String format = bitcoinSource["format"][0];
+
+                      return Card(
+                        child: ListTile(
+                          tileColor: Cores.tileColor,
+                          title: Text(name, textAlign: TextAlign.center),
+                          subtitle: Text('Valor em $format: $last',
+                              textAlign: TextAlign.center),
+                        ),
+                      );
+                    },
+                  );
+                }
+            }
+          }),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+import '../styles/Cores.dart';
 import '../components/DrawerComponent.dart';
 
 const request =
@@ -85,11 +86,11 @@ class _ConversorState extends State<Conversor> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: Drawer(child: DrawerComponent()),
-        backgroundColor: Colors.blueGrey[900],
+        backgroundColor: Cores.secondaryColor,
         appBar: AppBar(
             title: const Text("Conversor de Moedas"),
             centerTitle: true,
-            backgroundColor: Colors.red),
+            backgroundColor: Cores.primaryColor,),
         body: FutureBuilder<Map>(
             future: getData(),
             builder: (context, snapshot) {
@@ -100,7 +101,7 @@ class _ConversorState extends State<Conversor> {
                   return const Center(
                       child: Text(
                         "Carregando dados...",
-                        style: TextStyle(color: Colors.red, fontSize: 25.0),
+                        style: TextStyle(color: Cores.primaryColor, fontSize: 25.0),
                         textAlign: TextAlign.center,
                       ));
                 default:
@@ -108,7 +109,7 @@ class _ConversorState extends State<Conversor> {
                     return const Center(
                         child: Text(
                           "Erro ao carregar dados...",
-                          style: TextStyle(color: Colors.red, fontSize: 25.0),
+                          style: TextStyle(color: Cores.primaryColor, fontSize: 25.0),
                           textAlign: TextAlign.center,
                         ));
                   } else {
@@ -125,7 +126,7 @@ class _ConversorState extends State<Conversor> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           const Icon(Icons.monetization_on,
-                              size: 150.0, color: Colors.red),
+                              size: 150.0, color: Cores.primaryColor),
                           buildTextFormField(
                               "Reais", "R\$", realController, _realChange),
                           const Divider(),
@@ -152,10 +153,10 @@ class _ConversorState extends State<Conversor> {
       controller: controller,
       decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Colors.red),
+          labelStyle: const TextStyle(color: Cores.primaryColor),
           border: const OutlineInputBorder(),
           prefixText: "$prefix "),
-      style: const TextStyle(color: Colors.red, fontSize: 25.0),
+      style: const TextStyle(color: Cores.primaryColor, fontSize: 25.0),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
     );
   }
