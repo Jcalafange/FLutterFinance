@@ -5,6 +5,7 @@ import '../styles/Cores.dart';
 import '../view/Conversor.dart';
 import '../view/BolsaValores.dart';
 import '../view/Bitcoin.dart';
+import '../view/Ibovespa.dart';
 
 class DrawerComponent extends StatefulWidget {
   @override
@@ -28,7 +29,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
             ListTile(
                 leading: Icon(FontAwesomeIcons.globe),
                 title: Text("Bolsa de valores"),
-                subtitle: Text("Tela inicial"),
+                subtitle: Text("veja a situção da maiores bolsas do mundo!"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
                   Navigator.push(context,
@@ -37,7 +38,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
             ListTile(
                 leading: Icon(Icons.account_balance),
                 title: Text("Conversor"),
-                subtitle: Text("Tela inicial"),
+                subtitle: Text("faça suas conversões!"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
                   Navigator.push(context,
@@ -46,11 +47,20 @@ class _DrawerComponentState extends State<DrawerComponent> {
             ListTile(
                 leading: Icon(FontAwesomeIcons.bitcoin),
                 title: Text("Bitcoin"),
-                subtitle: Text("Tela inicial"),
+                subtitle: Text("Bitcoin hoje!"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Bitcoin()));
+                }),
+            ListTile(
+                leading: Icon(FontAwesomeIcons.arrowTrendUp),
+                title: Text("Ibovespa"),
+                subtitle: Text("veja suas ações favoritas!"),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Ibovespa()));
                 }),
           ]),
         )
